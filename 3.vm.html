@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    {{message.name}}<br>
+    {{message.age}}
+</div>
+
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var mess = {
+        name: 'zy'
+    };
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: mess
+        }
+    });
+    //vm.message与mess指向同一个命名空间下
+    //console.log(vm.message == mess);
+
+    //更改以下二条都是对另外一个有影响,修改数据视图刷新
+    //vm.message.name='yang';
+    //mess.name = 'yang';
+
+    //不能将源数据指向新数据，这样视图不刷新
+    //    mess = {
+    //        name: 'test'
+    //    }
+
+    //创建实例后不能添加以前没有的属性，无法映射到视图s
+    //mess.age = 20;
+    //Vue.set/vm.$set可以给对象添加属性
+
+
+</script>
+</body>
+</html>

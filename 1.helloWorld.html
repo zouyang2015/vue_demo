@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    {{message}}
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    //vm=$scope MVVM model view viewModel
+    var vm = new Vue({
+        el: '#app',  //选取数据所作用的范围 querySelector可以取到的东西
+        data: {
+            message: 'hellow world'
+        }
+    })
+</script>
+</body>
+</html>

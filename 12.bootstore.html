@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="app" class="container">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>书名</th>
+            <th>价格</th>
+            <th>数量</th>
+            <th>小计</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="book in books">
+            <th>{{book.name}}</th>
+            <th>{{book.price}}</th>
+            <th>
+                <button @click="book.count--">-</button>
+                <input type="text" v-model="book.count"/>
+                <button @click="book.count++">+</button>
+            </th>
+            <th>{{book.price * book.count}}</th>
+            <th>
+                <button class="btn btn-danger" @click="removeFn(book)">删除</button>
+            </th>
+        </tr>
+        <tr>
+            <td colspan="5">总价格：{{total}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <label class="col-md-12">
+            书名：
+            <input type="text" class="form-control" v-model="list.name" />
+        </label>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-12">
+            价格:
+            <input type="text" class="form-control" v-model="list.price" />
+        </label>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-12">
+            数量：
+            <input type="text" class="form-control" v-model="list.count" />
+        </label>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" @click="add">增加</button>
+    </div>
+</div>
+
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var books = [
+        {name: 'VUE.js', price: 40, count: 1},
+        {name: 'NODE.js', price: 20, count: 1},
+        {name: 'REACT.js', price: 30, count: 1},
+        {name: 'JQUERY.js', price: 100, count: 1}
+    ];
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            books: books,
+            list:{
+                name:'',
+                price:'',
+                count:''
+            }
+        },
+        methods: {
+            removeFn: function (book) {
+                /*this.books = this.books.filter((item) => {
+                 return item!=book
+                 })*/
+
+                //vue给我们提供了一个$remove的方法，在这个数组中删除
+                this.books.$remove(book)
+            },
+            add:function(){
+                this.books.push(this.list);
+                this.list={
+                    name:'',
+                    price:'',
+                    count:''
+                };
+            }
+        },
+        computed: {
+            total: function () {
+                var sum = 0;
+                this.books.forEach(item=> {
+                    sum += item.price * item.count;
+                });
+                return sum;
+            }
+        }
+    })
+</script>
+</body>
+</html>

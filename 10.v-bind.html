@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- vue.js:1023 [Vue warn]: src="{{src}}": interpolation in "src" attribute will cause a 404 request. Use v-bind:src instead. -->
+    <!--<img src="{{src}}" alt=""/>-->
+    <!-- 如果直接这么写，会有一个404的请求 渲染2次 -->
+
+    <!-- 绑定动态数据，将src绑定到v-bind上，它会等待src去加载完成后才会把src属性挂上 只渲染一次 -->
+    <img v-bind:src="src" alt=""/>
+    <a v-bind:href="href">Vue.js</a>
+
+    <!--上面那种写法还报红，可以直接用“:”，以后看到“:”就知道动态取的data里的数据 -->
+    <img :src="src" alt=""/>
+    <a :href="href">Vue.js</a>
+
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            src:'http://cn.vuejs.org/images/logo.png',
+            href:'http://cn.vuejs.org/'
+        }
+    });
+
+
+</script>
+</body>
+</html>

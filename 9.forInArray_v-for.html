@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <!-- 数组没有$key,因为他没有属性名 -->
+    <!--<ul v-for="(key,mess) in message">
+        <li>{{$index}}-{{key}}{{mess.name}}:{{mess.price}}</li>
+    </ul>-->
+
+    <!-- 相同数据的遍历 让其强制通过索引去遍历 -->
+    <!--<ul v-for="mess in message" track-by="$index">
+        <li>{{mess}}</li>
+    </ul>-->
+
+    <!-- 双层遍历查询，得到外层所引用key -->
+    <div v-for="(key,mess) in message">
+        {{$index}}
+        <div v-for="type in mess.type">
+            {{key}}-{{$index}}:{{type}}
+        </div>
+    </div>
+
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            /*message: [
+             {name:'苹果',price:40},
+             {name:'三星',price:30},
+             {name:'htc',price:20}
+             ]*/
+
+            /*message: [
+             '苹果',
+             '苹果',
+             '苹果',
+             '苹果',
+             '苹果'
+             ]*/
+
+            message: [
+                {name: '苹果', price: 40, type: ['white', 'black']},
+                {name: '三星', price: 30, type: ['gray']},
+                {name: 'htc', price: 20, type: ['yellow', 'blue']}
+            ]
+        }
+    });
+
+
+</script>
+</body>
+</html>

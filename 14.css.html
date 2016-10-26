@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .color {
+            color: yellow;
+        }
+        .bg {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- 这种方法绑定不是很优雅，而且也只能绑定一个 -->
+    <div class="{{class1}}">123</div>
+
+    <!-- 用动态绑定 优雅绑定 -->
+    <div :class="class1">456</div>
+
+    <!-- boolean绑定的是样式对应的类名 当a为true时color就生效，b为true时bg就生效 -->
+    <div :class="{color:isTrue,bg:isFalse}">hello</div>
+
+    <!-- 用数组的形式绑定 -->
+    <div :class="[class1,class2]">world</div>
+
+    <!-- 数组和对象混用 -->
+    <div :class="[class1,{bg:isTrue}]">i love you</div>
+
+    <div :class="[true?class1:'my1',{bg:isTrue}]">too</div>
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            isTrue:true,
+            isFalse:false,
+            class1:'color',
+            class2:'bg'
+        }
+    })
+</script>
+</body>
+</html>

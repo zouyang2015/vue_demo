@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- v-if 条件不成功就把其移除掉 -->
+    <!--<div v-if="false">
+        {{message}}
+    </div>-->
+
+    <!-- v-show 条件不成功就把其隐藏-->
+    <!--<div v-show="false">
+        {{message}}
+    </div>-->
+
+    <!--<div v-if="true">
+        <div>hello</div>
+        <div>world</div>
+    </div>-->
+    <!-- 在渲染时会有v-if的这层空标签存在，如果想不渲染这一层可以用template -->
+    <!--<template v-if="true">
+        <div>hello</div>
+        <div>world</div>
+    </template>-->
+
+    <!--<template v-if="false">
+        <div>hello</div>
+        <div>world</div>
+    </template>-->
+    <!-- v-else 当v-if不成立时，运行v-else 但是要跟在v-if后面写v-else，也可以根在v-show后面 -->
+    <!--<template v-else>
+        <div>I love you</div>
+    </template>-->
+
+    <!-- v-show上不支持template -->
+    <div v-show="false">
+        <div>hello</div>
+        <div>world</div>
+    </div>
+    <div v-else>
+        <div>I love you</div>
+    </div>
+
+
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'hello'
+        }
+    });
+
+    //v-show与v-if区别
+    //v-show => ng-show 操作的样式
+    //v-if => ng-if 操作的是dom 条件不成功就把其移除掉
+    //需要不停切换时用v-show,不需要频繁切换时用v-if
+
+</script>
+</body>
+</html>

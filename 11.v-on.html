@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--v-on 执行方法的时候，需要传递参数时加(),如果不需要传递参数就不要加() -->
+    <!--不加括号默认传递事件源e-->
+    <div v-on:click="add">
+        Hello world
+    </div>
+    <!--加括号需要手动传递事件源-->
+    <div v-on:click="sum(2,3,$event)">
+        Hello world2
+    </div>
+
+    <!--v-on也是红的，取代v-on:的是@-->
+    <div @click="sum(2,3,$event)">
+        Hello world3
+    </div>
+
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            src:'http://cn.vuejs.org/images/logo.png',
+            href:'http://cn.vuejs.org/'
+        },
+        methods:{
+            add:function(e){
+                console.log(e,'--',100);
+            },
+            sum:function(a,b,event){
+                console.log(a,'--',b,'--',event);
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>

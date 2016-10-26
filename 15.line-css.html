@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .color {
+            color: yellow;
+        }
+        .bg {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- vue执行后会覆盖掉预设的行内样式 -->
+    <div style="font-size: 12px" :style="{background:'red',fontSize:'20px',color:'yellow'}">Hello world</div>
+
+    <!-- 动态绑定对象style1 -->
+    <div style="font-size: 12px" :style="style2">I Love You</div>
+
+    <!-- 数组的方式绑定多组对象 -->
+    <div style="font-size: 12px" :style="[style1,style2,style3]">Too</div>
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            isTrue:true,
+            isFalse:false,
+            class1:'color',
+            class2:'bg',
+            style1:{background:'red'},
+            style2:{fontSize:'20px'},
+            style3:{color:'yellow'}
+        }
+    })
+</script>
+</body>
+</html>

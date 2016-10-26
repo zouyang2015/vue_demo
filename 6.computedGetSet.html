@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    {{sum}}<br>
+    <input type="text" v-model="count"/>
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            name: 'zy',
+            price: 100,
+            count: 5
+        },
+        computed: {
+            sum: {
+                //属性都有set和get方法。get是获取，set是设置
+                get:function(){//默认的方法是获取
+                    //vm中所有this指向的都是当前实例vm
+                    return this.price * this.count;
+                },
+                set:function(val){//在设置方法去更改别的数据
+                    this.price = val;
+                }
+            }
+        }
+    });
+    vm.sum = 200;
+</script>
+</body>
+</html>

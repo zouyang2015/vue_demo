@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    <!-- 首字母大写 -->
+    <!--1.如果我想开始前3个字母都大写，这时候Vue默认capitalize不支持，需要去自定义过滤器 Vue提供了Vue.filter()-->
+    {{'hello world' | capitalize 0 3}}<br>
+
+    <!--2.读取过滤-->
+    <!--<input type="text" v-model="cur | currency '$' 2"/>{{cur}}-->
+
+    <input type="text" v-model="cur | my"/>{{cur}}
+
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+
+    //1.'capitalize'为过滤的名子，function中三个参数：1值，2第2，3第3
+    Vue.filter('capitalize',function(value,begin,end){
+        //slice(0,3):从索引0开始取到索引3，但不包括3
+        //slice(3):从索引3开始取到最后
+        return value.slice(begin,end).toUpperCase()+value.slice(end);
+    });
+
+    //2.写数据时过滤
+    Vue.filter('my',{
+//        read:function(){
+//            //alert(11);
+//        },  //默认写一个函数时是读取
+        write:function(val){ //默认写入时要进行过滤的,对数据进行写入修改
+            return parseFloat(val).toFixed(2);
+        }
+    });
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            cur:100.234432,
+            message:{name:'zy',age:34},
+            arrays:[
+                {name:'zy1',age:'asdf'},
+                {name:'zy2',age:'asdf'},
+                {name:'zy3',age:1},
+                {name:'zy4',age:3},
+                {name:'zy5',age:4},
+                {name:'zy6',age:7},
+                {name:'zy7',age:2},
+                {name:'zy8',age:8},
+                {name:'zy9',age:6},
+                {name:'asdf',age:2}
+            ],
+            count:0,  //初始从0条显示
+            order:1
+        },
+        methods:{
+            onkeyup:function(){
+                alert(1);
+            }
+        }
+    })
+</script>
+</body>
+</html>

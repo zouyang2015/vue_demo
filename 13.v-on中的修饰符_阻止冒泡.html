@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    <!-- 2.@click.self：只在自己身上触发，解决点击middle或child时也出发parent方法的问题 -->
+    <div @click.self="parent">
+        parent
+        <div>middle</div>
+        <!-- 1.阻止事件传播(组织冒泡)： 绑定方法时 @click.stop -->
+        <div @click.stop="child(1,$event)">child</div>
+    </div>
+
+    <!-- 3.@click.prevent: 阻止默认行为 -->
+    <a href="http://www.baidu.com" @click.prevent>www.baidu.com</a><br>
+
+    <!-- 4.@keyup.enter: 按键修饰符 除了可以用enter，还可以用ASKII码值eg:@keyup.13 -->
+    <input type="text" @keyup.enter="parent"/>
+</div>
+
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+
+        },
+        methods:{
+            parent:function(){
+                alert('parent');
+            },
+            child:function(num,e){
+                alert('child');
+                //1.之前阻止冒泡时要有事件对像e,但是如果方法需要传值，事件对像就要手动绑定
+                //e.stopPropagation();
+            }
+        }
+    })
+</script>
+</body>
+</html>

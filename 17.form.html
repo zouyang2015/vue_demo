@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    <!--如果我们写入的是checkbox，需要设定一个数组-->
+    <input type="checkbox" name="group" v-model="checks" value="吃"/>吃<br>
+    <input type="checkbox" name="group" v-model="checks" value="喝"/>喝<br>
+    <input type="checkbox" name="group" v-model="checks" value="玩"/>玩<br>
+    {{checks}}<br><br>
+
+    <input type="radio" name="radio" v-model="radio" value="男"/>男<br>
+    <input type="radio" name="radio" v-model="radio" value="女"/>女<br>
+    {{radio}}<br><br>
+
+    <!--单选菜单为字符串类型，多选菜单为数组类型-->
+    <select v-model="selects1">
+        <option value="1" selected>hello</option>
+        <option value="2">world</option>
+        <option value="3">!!!</option>
+    </select>
+    {{selects1}}<br><br>
+    <select v-model="selects2" multiple>
+        <option value="1" selected>hello</option>
+        <option value="2">world</option>
+        <option value="3">!!!</option>
+    </select>
+    {{selects2}}<br><br>
+
+    <!--angular里as for in,vue中只能通过v-for-->
+    <select>
+        <option v-for="select in selects" :value="select.age">{{select.name}}</option>
+    </select><br><br>
+
+    <!--失去焦点时才会去刷新 angular:updataOn:'blur'-->
+    <input type="text" v-model="data" lazy/>{{data}}<br><br>
+
+    <!--延迟数据刷新-->
+    <input type="text" v-model="data2" debounce="2000"/>{{data2}}
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            checks:[],
+            selects:[
+                {name:'zy1',age:20},
+                {name:'zy2',age:30},
+                {name:'zy3',age:40}
+            ]
+        }
+    })
+</script>
+</body>
+</html>

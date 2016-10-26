@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    <!-- 首字母大写 -->
+    {{'hello world' | capitalize}}<br>
+
+    <!-- 小写转大写 -->
+    {{'hello world' | uppercase}}<br>
+
+    <!-- 大写转小写 -->
+    {{'Hello World' | lowercase}}<br>
+
+    <!-- 货币过滤器货币过滤器 -->
+    {{123.231234 | currency}}<br>
+    <!-- 货币可以规定前边单位,angular中是currency:'￥',vue中是currency '￥' -->
+    <!-- 并可强制限制保留几位小数 -->
+    {{123.231234 | currency '￥' 3}}<br>
+
+    <!-- 单复数，除了1都是复数 -->
+    <!--找对应项-->
+    {{1 | pluralize 'item1' 'item2' 'item3' 'item4' 'item5' 'item6' 'item7' 'item8' 'item9'}}  <!--item1-->
+    {{6 | pluralize 'item1' 'item2' 'item3' 'item4' 'item5' 'item6' 'item7' 'item8' 'item9'}}  <!--item6-->
+    <!--如果没找到，默认为最后一个-->
+    {{20 | pluralize 'item1' 'item2' 'item3' 'item4' 'item5' 'item6' 'item7' 'item8' 'item9'}}  <!--itme9-->
+    {{20 | pluralize 'item1' 'item2' 'item3' 'item4' 'item5' 'item6' 'item7' 'item8' 'item9' 'item10'}}  <!--itme10-->
+
+    <!--对象转json，4个空格的缩进-->
+    <pre>{{message | json 4}}</pre>
+
+    <!--延迟事件触发-->
+    <input type="text" @keyup="onkeyup | debounce 2000"/><br>
+
+    <!--limitBy 限制条数-2，和从第几条显示-count -->
+    <!--<button @click="count+=2">下一页</button>
+    <div v-for="array in arrays | limitBy 2 count">
+        {{array.name}}
+    </div>-->
+
+    <!--所用数据过滤-->
+    <!--<div v-for="array in arrays | filterBy 'asdf'">
+        {{array.name}} {{array.age}}
+    </div>-->
+    <!--默认从所有属性中过滤,可以让其从某属性中过滤,可以节省性能-->
+    <!--<div v-for="array in arrays | filterBy 'asdf' in 'age'">
+        {{array.name}} {{array.age}}
+    </div>-->
+
+    <button @click="order*=-1">反向排序</button>
+    <div v-for="array in arrays | orderBy 'name' order ">
+        {{array.name}}
+    </div>
+
+
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            message:{name:'zy',age:34},
+            arrays:[
+                {name:'zy1',age:'asdf'},
+                {name:'zy2',age:'asdf'},
+                {name:'zy3',age:1},
+                {name:'zy4',age:3},
+                {name:'zy5',age:4},
+                {name:'zy6',age:7},
+                {name:'zy7',age:2},
+                {name:'zy8',age:8},
+                {name:'zy9',age:6},
+                {name:'asdf',age:2}
+            ],
+            count:0,  //初始从0条显示
+            order:1
+        },
+        methods:{
+            onkeyup:function(){
+                alert(1);
+            }
+        }
+    })
+</script>
+</body>
+</html>

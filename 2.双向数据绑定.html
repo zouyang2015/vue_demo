@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    <!-- angularjs中用ng-model -->
+    <input type="text" v-model="message"/><br>
+    {{message}}<br>
+    <!-- 支持三元表达试 -->
+    {{message?message:'hello'}}<br>
+    <!-- 数据只绑定一次，再变化时就不变了 -->
+    {{* message }}<br>
+    <!-- 绑定html标签 angularjs $sec.trustAs -->
+    {{{message}}}<br>
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            message:'<h1>hello world</h1>'
+        }
+    })
+</script>
+</body>
+</html>

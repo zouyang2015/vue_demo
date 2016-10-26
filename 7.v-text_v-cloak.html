@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--{{message}}-->
+
+    <!-- ng-bind解决angular中单个标签的闪烁问题 -->
+    <!--<p v-text="message"></p>-->
+
+    <!-- angular里的ng-cloak可以控制多级标签闪烁 -->
+    <p v-cloak>
+        {{message}}
+    </p>
+
+</div>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            message:'hello'
+        }
+    })
+</script>
+</body>
+</html>
