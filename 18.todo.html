@@ -140,7 +140,7 @@
         </li>
     </ul>
     <div class="footer">
-        <span>共选中{{count}}</span>
+        <span>{{count}} items left</span>
         <ul>
             <li>all</li>
             <li>active</li>
@@ -179,7 +179,7 @@
                 get:function(){
                     var count = 0;
                     this.todos.forEach((item)=>{
-                        if(item.selected) count++;
+                        if(!item.selected) count++;
                     })
                     return count;
                 }
