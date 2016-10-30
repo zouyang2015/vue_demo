@@ -125,7 +125,7 @@
         <input type="text" @keyup.enter="addTodo" v-model="todo">
     </div>
     <ul class="list">
-        <li v-for="todo in todos">
+        <li v-for="todo in todos | my cur">
             <!--每一条的选中状态-->
             <input type="checkbox" class="my-list" v-model="todo.selected">
 
@@ -133,56 +133,97 @@
                 <!--每次输入显示的内容-->
                 <label class="label">{{todo.value}}</label>
                 <!--点击的输入框-->
-                <input class="content" type="text">
+                <input class="content" type="text" v-model="todo.value">
                 <!--删除的按钮-->
-                <button class="button">x</button>
+                <button class="button" @click="remove(todo)">x</button>
             </div>
         </li>
     </ul>
     <div class="footer">
         <span>{{count}} items left</span>
         <ul>
-            <li>all</li>
-            <li>active</li>
-            <li>completed</li>
+            <li @click="cur='all'" :class="{'active':cur=='all'}">all</li>
+            <li @click="cur='active'" :class="{'active':cur=='active'}">active</li>
+            <li @click="cur='completed'" :class="{'active':cur=='completed'}">completed</li>
         </ul>
-        <button class="clear">clear completed</button>
+        <button class="clear" v-show="cur=='completed'" @click="removeChoose">clear completed</button>
     </div>
 </div>
 
 <script src="bower_components/vue/dist/vue.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
 <script>
     //https://wakeupmypig.github.io/jw_blog/html/Vue.js/todo.html
     //http://cn.vuejs.org/examples/todomvc.html
+
+    Vue.filter('my', function (value, begin, end) {
+        if (begin == 'all') {
+            return value;
+        } else if (begin == 'active') {
+            return value.filter((item)=> {
+                return !item.selected;
+            });
+        } else if (begin == 'completed') {
+            return value.filter((item)=> {
+                return item.selected;
+            })
+        }
+    });
     var vm = new Vue({
-        el:'.container',
-        data:{
-            todos:[],
-            todo:'',
+        el: '.container',
+        data: {
+            todos: [],
+            todo: '',
+            checkAll: false,
+            cur: 'all'
         },
-        methods:{
-            addTodo:function(){
+        ready: function () {
+            $(document).on('mouseenter', '.list li', function () {
+                $(this).find('button').show();
+            });
+            $(document).on('mouseleave', '.list li', function () {
+                $(this).find('button').hide();
+            });
+            $(document).on('dblclick', '.list li', function () {
+                $(this).find('.content').show().focus();
+            });
+        },
+        methods: {
+            addTodo: function () {
                 this.todos.push({
-                    value:this.todo,
-                    selected:false
+                    value: this.todo,
+                    selected: false
                 });
-                this.todo='';
+                this.todo = '';
+            },
+            remove: function (todo) {
+                this.todos.$remove(todo);
+            },
+            removeChoose: function () {
+                /*this.todos.forEach((item)=>{
+                 if(item.selected==true){
+                 this.todos.$remove(item)
+                 }
+                 });*/
+                this.todos = this.todos.filter((item)=> {
+                    return !item.selected;
+                })
             }
         },
-        computed:{
-            checkAll:{
-                set:function(val){
-                    this.todos.forEach((item)=>{
+        computed: {
+            checkAll: {
+                set: function (val) {
+                    this.todos.forEach((item)=> {
                         item.selected = val;
                     });
                 },
             },
-            count:{
-                get:function(){
+            count: {
+                get: function () {
                     var count = 0;
-                    this.todos.forEach((item)=>{
-                        if(!item.selected) count++;
-                    })
+                    this.todos.forEach((item)=> {
+                        if (!item.selected) count++;
+                    });
                     return count;
                 }
             }
